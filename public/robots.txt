@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://buzzcutforeveryone.com/sitemap.xml
+
+# Disallow admin and API routes
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Allow important pages
+Allow: /
+Allow: /buzz-cut
+Allow: /classic-buzz-cut
+Allow: /ai-designer
+Allow: /blog
+Allow: /contact
+
+# Crawl delay (optional)
+Crawl-delay: 1
