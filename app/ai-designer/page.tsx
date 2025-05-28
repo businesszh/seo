@@ -8,9 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Navigation } from "@/components/navigation"
-
-// Note: Since this is a client component, we can't export metadata directly
-// The metadata would need to be set in a parent layout or page component
+import { trackAIDesignerEvent } from "@/lib/analytics"
 
 const hairstyles = [
   {
@@ -85,6 +83,8 @@ export default function AIDesignerPage() {
       reader.onload = (e) => {
         setUploadedImage(e.target?.result as string)
         setProcessedImage(null)
+        // Track image upload
+        trackAIDesignerEvent("image_upload", { file_size: file.size })
       }
       reader.readAsDataURL(file)
     }
@@ -102,16 +102,36 @@ export default function AIDesignerPage() {
       reader.onload = (e) => {
         setUploadedImage(e.target?.result as string)
         setProcessedImage(null)
+        // Track drag and drop upload
+        trackAIDesignerEvent("image_drag_drop", { file_size: file.size })
       }
       reader.readAsDataURL(file)
     }
   }
 
+  const handleStyleSelection = (styleId: number) => {
+    setSelectedHairstyle(styleId)
+    const selectedStyle = hairstyles.find((style) => style.id === styleId)
+    // Track style selection
+    trackAIDesignerEvent("style_selected", {
+      style_name: selectedStyle?.name,
+      style_category: selectedStyle?.category,
+    })
+  }
+
   const processHairstyle = async () => {
     if (!uploadedImage || selectedHairstyle === null) return
 
+    const selectedStyle = hairstyles.find((style) => style.id === selectedHairstyle)
+    const startTime = Date.now()
+
     setIsProcessing(true)
     setProgress(0)
+
+    // Track AI processing start
+    trackAIDesignerEvent("ai_processing_start", {
+      style_name: selectedStyle?.name,
+    })
 
     // 模拟AI处理过程
     const interval = setInterval(() => {
@@ -120,6 +140,14 @@ export default function AIDesignerPage() {
           clearInterval(interval)
           setIsProcessing(false)
           setProcessedImage("/placeholder.svg?height=400&width=400")
+
+          // Track AI processing completion
+          const processingTime = Date.now() - startTime
+          trackAIDesignerEvent("ai_processing_complete", {
+            style_name: selectedStyle?.name,
+            processing_time: processingTime,
+          })
+
           return 100
         }
         return prev + 10
@@ -133,6 +161,11 @@ export default function AIDesignerPage() {
       link.href = processedImage
       link.download = "new-hairstyle.jpg"
       link.click()
+
+      // Track download
+      trackAIDesignerEvent("result_download", {
+        style_name: hairstyles.find((style) => style.id === selectedHairstyle)?.name,
+      })
     }
   }
 
@@ -224,7 +257,7 @@ export default function AIDesignerPage() {
                           ? "border-purple-500 ring-2 ring-purple-200"
                           : "border-gray-200 hover:border-purple-300"
                       }`}
-                      onClick={() => setSelectedHairstyle(style.id)}
+                      onClick={() => handleStyleSelection(style.id)}
                     >
                       <img
                         src={style.image || "/placeholder.svg"}

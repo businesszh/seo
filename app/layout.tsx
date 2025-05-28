@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+import Script from "next/script"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -18,11 +19,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Buzz Cut For Everyone - AI Hair Design Studio",
     description: "Experience the future of hair design with AI-powered personalization and expert craftsmanship.",
-    url: "https://buzzcutforeveryone.com",
+    url: "https://www.aibuzzcut.shop",
     siteName: "Buzz Cut For Everyone",
     images: [
       {
-        url: "/logo.png",
+        url: "https://www.aibuzzcut.shop/logo.png",
         width: 1200,
         height: 630,
         alt: "Buzz Cut For Everyone - AI Hair Design Studio",
@@ -59,7 +60,20 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/logo.png" />
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {/* Google Analytics */}
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-6PRLCYKK48" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-6PRLCYKK48');
+          `}
+        </Script>
+
+        {children}
+      </body>
     </html>
   )
 }

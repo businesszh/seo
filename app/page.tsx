@@ -14,16 +14,16 @@ export const metadata: Metadata = {
   keywords:
     "buzz cut, AI hair design, hair styling, buzz cut styles, AI buzz cut, hair design, professional haircut, geometric hair patterns, hair salon, buzz cut studio",
   alternates: {
-    canonical: "https://buzzcutforeveryone.com",
+    canonical: "https://www.aibuzzcut.shop",
   },
   openGraph: {
     title: "Buzz Cut For Everyone - AI Hair Design Studio",
     description: "Experience the future of hair design with AI-powered personalization and expert craftsmanship.",
-    url: "https://buzzcutforeveryone.com",
+    url: "https://www.aibuzzcut.shop",
     siteName: "Buzz Cut For Everyone",
     images: [
       {
-        url: "https://buzzcutforeveryone.com/logo.png",
+        url: "https://www.aibuzzcut.shop/logo.png",
         width: 1200,
         height: 630,
         alt: "Buzz Cut For Everyone - AI Hair Design Studio",

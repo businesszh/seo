@@ -12,16 +12,16 @@ export const metadata: Metadata = {
     "Professional buzz cut care knowledge, maintenance tips and styling advice. Everything you need to keep your buzz cut looking perfect and your scalp healthy.",
   keywords: "buzz cut care, hair maintenance, scalp health, professional hair tips, buzz cut blog, hair care guide",
   alternates: {
-    canonical: "https://buzzcutforeveryone.com/blog",
+    canonical: "https://www.aibuzzcut.shop/blog",
   },
   openGraph: {
     title: "Buzz Cut Care Blog - Professional Hair Care Tips & Guides",
     description: "Professional buzz cut care knowledge, maintenance tips and styling advice.",
-    url: "https://buzzcutforeveryone.com/blog",
+    url: "https://www.aibuzzcut.shop/blog",
     siteName: "Buzz Cut For Everyone",
     images: [
       {
-        url: "https://buzzcutforeveryone.com/mens-hair-care-guide.jpeg",
+        url: "https://www.aibuzzcut.shop/mens-hair-care-guide.jpeg",
         width: 1200,
         height: 630,
         alt: "Buzz Cut Care Blog - Professional Hair Care Tips & Guides",

@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://buzzcutforeveryone.com/sitemap.xml
+Sitemap: https://www.aibuzzcut.shop/sitemap.xml
 
 # Disallow admin and API routes
 Disallow: /api/

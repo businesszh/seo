@@ -11,6 +11,20 @@ export const metadata: Metadata = {
   description:
     "Master the essential steps to keep your buzz cut healthy and looking sharp. Professional techniques from top barbers for optimal scalp health and maintenance.",
   keywords: "mens hair care, buzz cut maintenance, scalp health, hair care routine, professional hair tips",
+  alternates: {
+    canonical: "https://www.aibuzzcut.shop/blog/mens-hair-care-guide",
+  },
+  openGraph: {
+    url: "https://www.aibuzzcut.shop/blog/mens-hair-care-guide",
+    images: [
+      {
+        url: "https://www.aibuzzcut.shop/mens-hair-care-guide.jpeg",
+        width: 800,
+        height: 600,
+        alt: "Complete Guide to Men's Hair Care",
+      },
+    ],
+  },
 }
 
 export default function MensHairCareGuidePage() {

@@ -4,6 +4,23 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Navigation } from "@/components/navigation"
 
+export const metadata = {
+  alternates: {
+    canonical: "https://www.aibuzzcut.shop/buzz-cut",
+  },
+  openGraph: {
+    url: "https://www.aibuzzcut.shop/buzz-cut",
+    images: [
+      {
+        url: "https://www.aibuzzcut.shop/barber-cutting-hair.png",
+        width: 800,
+        height: 600,
+        alt: "Barber Cutting Hair",
+      },
+    ],
+  },
+}
+
 const buzzCutStyles = [
   {
     id: 1,

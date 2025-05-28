@@ -13,17 +13,17 @@ export const metadata: Metadata = {
     "Explore short classic buzz cut styles including military cuts, crew cuts, and ultra-short traditional haircuts. Perfect for professional and clean looks.",
   keywords: "short classic buzz cut, military buzz cut, crew cut, ultra short haircut, short traditional buzz cut",
   alternates: {
-    canonical: "https://buzzcutforeveryone.com/classic-buzz-cut/short-classic-buzz-cut",
+    canonical: "https://www.aibuzzcut.shop/classic-buzz-cut/short-classic-buzz-cut",
   },
   openGraph: {
     title: "Short Classic Buzz Cut Styles - Ultra Short Traditional Haircuts",
     description:
       "Explore short classic buzz cut styles including military cuts, crew cuts, and ultra-short traditional haircuts.",
-    url: "https://buzzcutforeveryone.com/classic-buzz-cut/short-classic-buzz-cut",
+    url: "https://www.aibuzzcut.shop/classic-buzz-cut/short-classic-buzz-cut",
     siteName: "Buzz Cut For Everyone",
     images: [
       {
-        url: "https://buzzcutforeveryone.com/buzz-cut-man-portrait.png",
+        url: "https://www.aibuzzcut.shop/buzz-cut-man-portrait.png",
         width: 1200,
         height: 630,
         alt: "Short Classic Buzz Cut Styles - Professional Ultra Short Haircuts",

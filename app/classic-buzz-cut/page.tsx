@@ -12,16 +12,16 @@ export const metadata: Metadata = {
     "Discover timeless classic buzz cut styles. From military cuts to traditional short hair, find the perfect classic buzz cut for your style.",
   keywords: "classic buzz cut, traditional buzz cut, military buzz cut, short classic haircut, traditional hair styles",
   alternates: {
-    canonical: "https://buzzcutforeveryone.com/classic-buzz-cut",
+    canonical: "https://www.aibuzzcut.shop/classic-buzz-cut",
   },
   openGraph: {
     title: "Classic Buzz Cut Styles - Traditional Short Hair Cuts",
     description: "Discover timeless classic buzz cut styles. From military cuts to traditional short hair.",
-    url: "https://buzzcutforeveryone.com/classic-buzz-cut",
+    url: "https://www.aibuzzcut.shop/classic-buzz-cut",
     siteName: "Buzz Cut For Everyone",
     images: [
       {
-        url: "https://buzzcutforeveryone.com/barber-cutting-hair.png",
+        url: "https://www.aibuzzcut.shop/barber-cutting-hair.png",
         width: 1200,
         height: 630,
         alt: "Classic Buzz Cut Styles - Professional Traditional Haircuts",

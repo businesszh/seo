@@ -13,16 +13,16 @@ export const metadata: Metadata = {
     "Get in touch with our expert buzz cut team. Book appointments, ask questions, or get personalized consultations. Professional buzz cut services for everyone.",
   keywords: "contact buzz cut salon, book buzz cut appointment, buzz cut consultation, professional barber contact",
   alternates: {
-    canonical: "https://buzzcutforeveryone.com/contact",
+    canonical: "https://www.aibuzzcut.shop/contact",
   },
   openGraph: {
     title: "Contact Us - Buzz Cut For Everyone",
     description: "Get in touch with our expert buzz cut team. Book appointments and get personalized consultations.",
-    url: "https://buzzcutforeveryone.com/contact",
+    url: "https://www.aibuzzcut.shop/contact",
     siteName: "Buzz Cut For Everyone",
     images: [
       {
-        url: "https://buzzcutforeveryone.com/logo.png",
+        url: "https://www.aibuzzcut.shop/logo.png",
         width: 1200,
         height: 630,
         alt: "Contact Buzz Cut For Everyone - Professional Hair Design Studio",
