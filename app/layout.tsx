@@ -59,6 +59,13 @@ export default function RootLayout({
         <link rel="icon" href="/logo.png" />
         <link rel="apple-touch-icon" href="/logo.png" />
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+        {/* Google AdSense */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1101436038151360"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className={inter.className}>
         {/* Google Analytics */}

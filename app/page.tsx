@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Navigation } from "@/components/navigation"
 import { InternalLinks } from "@/components/internal-links"
+import { ResponsiveAd } from "@/components/responsive-ad"
 
 export const metadata: Metadata = {
   title: "Buzz Cut For Everyone - AI Hair Design Studio | Professional Buzz Cut Styles",
@@ -115,6 +116,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Ad Banner after Hero */}
+      <ResponsiveAd adSlot="1234567890" className="max-w-7xl mx-auto px-4" />
 
       {/* Featured Images Gallery */}
       <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white">
@@ -231,6 +235,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Ad Banner after Gallery */}
+      <ResponsiveAd adSlot="1234567891" className="max-w-7xl mx-auto px-4" />
 
       {/* Quick Navigation Section */}
       <section className="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
@@ -378,6 +385,9 @@ export default function HomePage() {
 
       {/* Internal Links */}
       <InternalLinks currentPage="Buzz Cut" childLinks={childLinks} />
+
+      {/* Ad Banner before CTA */}
+      <ResponsiveAd adSlot="1234567892" className="max-w-7xl mx-auto px-4" />
 
       {/* CTA Section */}
       <section className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 text-white relative overflow-hidden">

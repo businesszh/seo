@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Navigation } from "@/components/navigation"
+import { ResponsiveAd } from "@/components/responsive-ad"
 
 export const metadata: Metadata = {
   title: "Buzz Cut Care Blog - Professional Hair Care Tips & Guides",
@@ -181,6 +182,9 @@ export default function BlogPage() {
         </div>
       </section>
 
+      {/* Ad Banner after Header */}
+      <ResponsiveAd adSlot="1234567893" className="max-w-7xl mx-auto px-4" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* 主内容区 */}
@@ -198,48 +202,52 @@ export default function BlogPage() {
             {/* 精选文章 */}
             <div className="space-y-8">
               <h2 className="text-2xl font-bold text-gray-900">Featured Articles</h2>
-              {featuredPosts.map((post) => (
-                <Card key={post.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="md:flex">
-                    <div className="md:w-1/3">
-                      <img
-                        src={post.image || "/placeholder.svg"}
-                        alt={`${post.title} - Professional buzz cut care guide and styling tips`}
-                        className="w-full h-64 md:h-full object-cover"
-                        width="400"
-                        height="300"
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="md:w-2/3 p-6">
-                      <Badge className="mb-3 bg-blue-500 text-white">Featured</Badge>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-3">{post.title}</h3>
-                      <p className="text-gray-600 mb-4">{post.excerpt}</p>
-                      <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
-                        <div className="flex items-center gap-1">
-                          <User className="h-4 w-4" />
-                          {post.author}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Calendar className="h-4 w-4" />
-                          {post.date}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Clock className="h-4 w-4" />
-                          {post.readTime}
-                        </div>
+              {featuredPosts.map((post, index) => (
+                <div key={post.id}>
+                  <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                    <div className="md:flex">
+                      <div className="md:w-1/3">
+                        <img
+                          src={post.image || "/placeholder.svg"}
+                          alt={`${post.title} - Professional buzz cut care guide and styling tips`}
+                          className="w-full h-64 md:h-full object-cover"
+                          width="400"
+                          height="300"
+                          loading="lazy"
+                        />
                       </div>
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {post.tags.map((tag, index) => (
-                          <Badge key={index} variant="outline">
-                            {tag}
-                          </Badge>
-                        ))}
+                      <div className="md:w-2/3 p-6">
+                        <Badge className="mb-3 bg-blue-500 text-white">Featured</Badge>
+                        <h3 className="text-2xl font-bold text-gray-900 mb-3">{post.title}</h3>
+                        <p className="text-gray-600 mb-4">{post.excerpt}</p>
+                        <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                          <div className="flex items-center gap-1">
+                            <User className="h-4 w-4" />
+                            {post.author}
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Calendar className="h-4 w-4" />
+                            {post.date}
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-4 w-4" />
+                            {post.readTime}
+                          </div>
+                        </div>
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {post.tags.map((tag, tagIndex) => (
+                            <Badge key={tagIndex} variant="outline">
+                              {tag}
+                            </Badge>
+                          ))}
+                        </div>
+                        <Button>Read Full Article</Button>
                       </div>
-                      <Button>Read Full Article</Button>
                     </div>
-                  </div>
-                </Card>
+                  </Card>
+                  {/* Ad after first featured article */}
+                  {index === 0 && <ResponsiveAd adSlot="1234567894" className="my-8" />}
+                </div>
               ))}
             </div>
 
@@ -247,52 +255,58 @@ export default function BlogPage() {
             <div className="space-y-6">
               <h2 className="text-2xl font-bold text-gray-900">More Articles</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {regularPosts.map((post) => (
-                  <Card key={post.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                    <div className="aspect-video bg-gray-100">
-                      <img
-                        src={post.image || "/placeholder.svg"}
-                        alt={`${post.title} - Expert buzz cut maintenance and care advice`}
-                        className="w-full h-full object-cover"
-                        width="400"
-                        height="300"
-                        loading="lazy"
-                      />
-                    </div>
-                    <CardHeader>
-                      <div className="flex items-center justify-between mb-2">
-                        <Badge variant="secondary">{post.category}</Badge>
-                        <div className="flex items-center gap-1 text-sm text-gray-500">
-                          <Clock className="h-3 w-3" />
-                          {post.readTime}
-                        </div>
+                {regularPosts.map((post, index) => (
+                  <div key={post.id}>
+                    <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                      <div className="aspect-video bg-gray-100">
+                        <img
+                          src={post.image || "/placeholder.svg"}
+                          alt={`${post.title} - Expert buzz cut maintenance and care advice`}
+                          className="w-full h-full object-cover"
+                          width="400"
+                          height="300"
+                          loading="lazy"
+                        />
                       </div>
-                      <CardTitle className="text-lg line-clamp-2">{post.title}</CardTitle>
-                      <CardDescription className="line-clamp-3">{post.excerpt}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                        <div className="flex items-center gap-1">
-                          <User className="h-3 w-3" />
-                          {post.author}
+                      <CardHeader>
+                        <div className="flex items-center justify-between mb-2">
+                          <Badge variant="secondary">{post.category}</Badge>
+                          <div className="flex items-center gap-1 text-sm text-gray-500">
+                            <Clock className="h-3 w-3" />
+                            {post.readTime}
+                          </div>
                         </div>
-                        <div className="flex items-center gap-1">
-                          <Calendar className="h-3 w-3" />
-                          {post.date}
+                        <CardTitle className="text-lg line-clamp-2">{post.title}</CardTitle>
+                        <CardDescription className="line-clamp-3">{post.excerpt}</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                          <div className="flex items-center gap-1">
+                            <User className="h-3 w-3" />
+                            {post.author}
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Calendar className="h-3 w-3" />
+                            {post.date}
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex flex-wrap gap-1 mb-4">
-                        {post.tags.slice(0, 2).map((tag, index) => (
-                          <Badge key={index} variant="outline" className="text-xs">
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
-                      <Button variant="outline" className="w-full">
-                        Read More
-                      </Button>
-                    </CardContent>
-                  </Card>
+                        <div className="flex flex-wrap gap-1 mb-4">
+                          {post.tags.slice(0, 2).map((tag, tagIndex) => (
+                            <Badge key={tagIndex} variant="outline" className="text-xs">
+                              {tag}
+                            </Badge>
+                          ))}
+                        </div>
+                        <Button variant="outline" className="w-full">
+                          Read More
+                        </Button>
+                      </CardContent>
+                    </Card>
+                    {/* Ad after every 3rd article */}
+                    {(index + 1) % 3 === 0 && (
+                      <ResponsiveAd adSlot={`123456789${5 + Math.floor(index / 3)}`} className="my-8" />
+                    )}
+                  </div>
                 ))}
               </div>
             </div>
@@ -300,6 +314,9 @@ export default function BlogPage() {
 
           {/* 侧边栏 */}
           <div className="space-y-6">
+            {/* Ad in sidebar */}
+            <ResponsiveAd adSlot="1234567899" />
+
             {/* 分类 */}
             <Card>
               <CardHeader>
