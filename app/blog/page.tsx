@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Navigation } from "@/components/navigation"
 import { ResponsiveAd } from "@/components/responsive-ad"
+import { StructuredData } from "@/components/structured-data"
 
 export const metadata: Metadata = {
   title: "Buzz Cut Care Blog - Professional Hair Care Tips & Guides",
@@ -46,6 +47,7 @@ const blogPosts = [
     category: "Hair Care Basics",
     tags: ["Hair Care", "Scalp Health", "Professional Tips"],
     featured: true,
+    url: "/blog/mens-hair-care-guide",
   },
   {
     id: 2,
@@ -59,6 +61,7 @@ const blogPosts = [
     category: "Hair Analysis",
     tags: ["Hair Type", "Personalized Care", "Scalp Analysis"],
     featured: true,
+    url: "/blog/understanding-hair-type",
   },
   {
     id: 3,
@@ -71,6 +74,7 @@ const blogPosts = [
     readTime: "10 min read",
     category: "Product Guide",
     tags: ["Hair Products", "Styling", "Product Reviews"],
+    url: "/blog/hair-product-guide",
   },
   {
     id: 4,
@@ -83,6 +87,7 @@ const blogPosts = [
     readTime: "7 min read",
     category: "Professional Techniques",
     tags: ["Maintenance", "Professional Tips", "Barber Secrets"],
+    url: "/blog/professional-maintenance",
   },
   {
     id: 5,
@@ -95,6 +100,7 @@ const blogPosts = [
     readTime: "9 min read",
     category: "Scalp Health",
     tags: ["Scalp Care", "Health", "Prevention"],
+    url: "/blog/scalp-health-guide",
   },
   {
     id: 6,
@@ -107,6 +113,7 @@ const blogPosts = [
     readTime: "6 min read",
     category: "Seasonal Care",
     tags: ["Seasonal Care", "Sun Protection", "Weather Adaptation"],
+    url: "/blog/seasonal-care",
   },
   {
     id: 7,
@@ -119,6 +126,7 @@ const blogPosts = [
     readTime: "8 min read",
     category: "Problem Solutions",
     tags: ["Problem Solving", "Troubleshooting", "Quick Fixes"],
+    url: "/blog/common-problems",
   },
   {
     id: 8,
@@ -131,6 +139,7 @@ const blogPosts = [
     readTime: "5 min read",
     category: "Style Psychology",
     tags: ["Psychology", "Confidence", "Personal Style"],
+    url: "/blog/psychology-of-buzz-cuts",
   },
 ]
 
@@ -163,243 +172,339 @@ export default function BlogPage() {
   const featuredPosts = blogPosts.filter((post) => post.featured)
   const regularPosts = blogPosts.filter((post) => !post.featured)
 
+  const blogStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "Buzz Cut Care Blog",
+    description: "Professional buzz cut care knowledge, maintenance tips and styling advice",
+    url: "https://www.aibuzzcut.shop/blog",
+    publisher: {
+      "@type": "Organization",
+      name: "Buzz Cut For Everyone",
+      url: "https://www.aibuzzcut.shop",
+    },
+    blogPost: blogPosts.map((post) => ({
+      "@type": "BlogPosting",
+      headline: post.title,
+      description: post.excerpt,
+      url: `https://www.aibuzzcut.shop${post.url}`,
+      datePublished: post.date,
+      author: {
+        "@type": "Person",
+        name: post.author,
+      },
+      image: `https://www.aibuzzcut.shop${post.image}`,
+      publisher: {
+        "@type": "Organization",
+        name: "Buzz Cut For Everyone",
+        url: "https://www.aibuzzcut.shop",
+      },
+    })),
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
-      <Navigation />
+    <>
+      <StructuredData type="WebPage" data={blogStructuredData} />
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+        <Navigation />
 
-      {/* Header */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <Badge variant="secondary" className="mb-4">
-            <TrendingUp className="h-3 w-3 mr-1" />
-            Expert Knowledge Base
-          </Badge>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Buzz Cut Care Blog</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Professional buzz cut care knowledge, maintenance tips and styling advice. Everything you need to keep your
-            buzz cut looking perfect and your scalp healthy.
-          </p>
-        </div>
-      </section>
+        {/* Enhanced Header */}
+        <section className="py-12 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto text-center">
+            <Badge variant="secondary" className="mb-4">
+              <TrendingUp className="h-3 w-3 mr-1" />
+              Expert Knowledge Base
+            </Badge>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Buzz Cut Care Blog</h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+              Professional buzz cut care knowledge, maintenance tips and styling advice. Everything you need to keep
+              your buzz cut looking perfect and your scalp healthy. Learn from expert barbers, dermatologists, and style
+              professionals.
+            </p>
 
-      {/* Ad Banner after Header */}
-      <ResponsiveAd adSlot="1234567893" className="max-w-7xl mx-auto px-4" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* 主内容区 */}
-          <div className="lg:col-span-3 space-y-8">
-            {/* 搜索栏 */}
-            <Card>
-              <CardContent className="p-4">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                  <Input placeholder="Search hair care tips, product guides, maintenance advice..." className="pl-10" />
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* 精选文章 */}
-            <div className="space-y-8">
-              <h2 className="text-2xl font-bold text-gray-900">Featured Articles</h2>
-              {featuredPosts.map((post, index) => (
-                <div key={post.id}>
-                  <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-                    <div className="md:flex">
-                      <div className="md:w-1/3">
-                        <img
-                          src={post.image || "/placeholder.svg"}
-                          alt={`${post.title} - Professional buzz cut care guide and styling tips`}
-                          className="w-full h-64 md:h-full object-cover"
-                          width="400"
-                          height="300"
-                          loading="lazy"
-                        />
-                      </div>
-                      <div className="md:w-2/3 p-6">
-                        <Badge className="mb-3 bg-blue-500 text-white">Featured</Badge>
-                        <h3 className="text-2xl font-bold text-gray-900 mb-3">{post.title}</h3>
-                        <p className="text-gray-600 mb-4">{post.excerpt}</p>
-                        <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
-                          <div className="flex items-center gap-1">
-                            <User className="h-4 w-4" />
-                            {post.author}
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Calendar className="h-4 w-4" />
-                            {post.date}
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Clock className="h-4 w-4" />
-                            {post.readTime}
-                          </div>
-                        </div>
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {post.tags.map((tag, tagIndex) => (
-                            <Badge key={tagIndex} variant="outline">
-                              {tag}
-                            </Badge>
-                          ))}
-                        </div>
-                        <Button>Read Full Article</Button>
-                      </div>
-                    </div>
-                  </Card>
-                  {/* Ad after first featured article */}
-                  {index === 0 && <ResponsiveAd adSlot="1234567894" className="my-8" />}
-                </div>
-              ))}
-            </div>
-
-            {/* 其他文章 */}
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-gray-900">More Articles</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {regularPosts.map((post, index) => (
-                  <div key={post.id}>
-                    <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-                      <div className="aspect-video bg-gray-100">
-                        <img
-                          src={post.image || "/placeholder.svg"}
-                          alt={`${post.title} - Expert buzz cut maintenance and care advice`}
-                          className="w-full h-full object-cover"
-                          width="400"
-                          height="300"
-                          loading="lazy"
-                        />
-                      </div>
-                      <CardHeader>
-                        <div className="flex items-center justify-between mb-2">
-                          <Badge variant="secondary">{post.category}</Badge>
-                          <div className="flex items-center gap-1 text-sm text-gray-500">
-                            <Clock className="h-3 w-3" />
-                            {post.readTime}
-                          </div>
-                        </div>
-                        <CardTitle className="text-lg line-clamp-2">{post.title}</CardTitle>
-                        <CardDescription className="line-clamp-3">{post.excerpt}</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                          <div className="flex items-center gap-1">
-                            <User className="h-3 w-3" />
-                            {post.author}
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Calendar className="h-3 w-3" />
-                            {post.date}
-                          </div>
-                        </div>
-                        <div className="flex flex-wrap gap-1 mb-4">
-                          {post.tags.slice(0, 2).map((tag, tagIndex) => (
-                            <Badge key={tagIndex} variant="outline" className="text-xs">
-                              {tag}
-                            </Badge>
-                          ))}
-                        </div>
-                        <Button variant="outline" className="w-full">
-                          Read More
-                        </Button>
-                      </CardContent>
-                    </Card>
-                    {/* Ad after every 3rd article */}
-                    {(index + 1) % 3 === 0 && (
-                      <ResponsiveAd adSlot={`123456789${5 + Math.floor(index / 3)}`} className="my-8" />
-                    )}
-                  </div>
-                ))}
+            {/* Additional SEO content */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 text-left">
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h2 className="text-lg font-semibold mb-3">Expert Advice</h2>
+                <p className="text-gray-600">
+                  Get professional tips from certified barbers, dermatologists, and hair care specialists with years of
+                  experience in buzz cut styling and maintenance.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h2 className="text-lg font-semibold mb-3">Comprehensive Guides</h2>
+                <p className="text-gray-600">
+                  From basic maintenance to advanced styling techniques, our detailed guides cover every aspect of buzz
+                  cut care for all hair types and lifestyles.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h2 className="text-lg font-semibold mb-3">Latest Trends</h2>
+                <p className="text-gray-600">
+                  Stay updated with the latest buzz cut trends, product reviews, and styling innovations in the world of
+                  short hair fashion and care.
+                </p>
               </div>
             </div>
           </div>
+        </section>
 
-          {/* 侧边栏 */}
-          <div className="space-y-6">
-            {/* Ad in sidebar */}
-            <ResponsiveAd adSlot="1234567899" />
+        {/* Ad Banner after Header */}
+        <ResponsiveAd adSlot="1234567893" className="max-w-7xl mx-auto px-4" />
 
-            {/* 分类 */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Tag className="h-4 w-4" />
-                  Article Categories
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  {categories.map((category, index) => (
-                    <Button
-                      key={index}
-                      variant={index === 0 ? "default" : "ghost"}
-                      className="w-full justify-start"
-                      size="sm"
-                    >
-                      {category}
-                    </Button>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            {/* 主内容区 */}
+            <div className="lg:col-span-3 space-y-8">
+              {/* 搜索栏 */}
+              <Card>
+                <CardContent className="p-4">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                    <Input
+                      placeholder="Search hair care tips, product guides, maintenance advice..."
+                      className="pl-10"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
 
-            {/* 热门标签 */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Popular Tags</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {popularTags.map((tag, index) => (
-                    <Badge key={index} variant="outline" className="cursor-pointer hover:bg-gray-100">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* 专家提示 */}
-            <Card className="bg-gradient-to-br from-blue-50 to-purple-50">
-              <CardHeader>
-                <CardTitle className="text-blue-800">Expert Tip</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-blue-700 text-sm">
-                  "The key to a perfect buzz cut is consistent maintenance and proper scalp care. Visit your barber
-                  every 2-3 weeks and use quality scalp moisturizer daily."
-                </p>
-                <p className="text-xs text-blue-600 mt-2 font-medium">- Master Barber Rodriguez</p>
-              </CardContent>
-            </Card>
-
-            {/* 最新文章 */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Latest Articles</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {blogPosts.slice(0, 4).map((post) => (
-                    <div key={post.id} className="flex gap-3">
-                      <img
-                        src={post.image || "/placeholder.svg"}
-                        alt={`${post.title} - Buzz cut care tips and professional advice`}
-                        className="w-16 h-16 object-cover rounded"
-                        width="64"
-                        height="64"
-                        loading="lazy"
-                      />
-                      <div className="flex-1">
-                        <h4 className="font-medium text-sm line-clamp-2 mb-1">{post.title}</h4>
-                        <p className="text-xs text-gray-500">{post.date}</p>
+              {/* 精选文章 */}
+              <div className="space-y-8">
+                <h2 className="text-2xl font-bold text-gray-900">Featured Articles</h2>
+                {featuredPosts.map((post, index) => (
+                  <div key={post.id}>
+                    <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                      <div className="md:flex">
+                        <div className="md:w-1/3">
+                          <img
+                            src={post.image || "/placeholder.svg"}
+                            alt={`${post.title} - Professional buzz cut care guide and styling tips`}
+                            className="w-full h-64 md:h-full object-cover"
+                            width="400"
+                            height="300"
+                            loading="lazy"
+                          />
+                        </div>
+                        <div className="md:w-2/3 p-6">
+                          <Badge className="mb-3 bg-blue-500 text-white">Featured</Badge>
+                          <h3 className="text-2xl font-bold text-gray-900 mb-3">{post.title}</h3>
+                          <p className="text-gray-600 mb-4">{post.excerpt}</p>
+                          <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                            <div className="flex items-center gap-1">
+                              <User className="h-4 w-4" />
+                              {post.author}
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Calendar className="h-4 w-4" />
+                              {post.date}
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Clock className="h-4 w-4" />
+                              {post.readTime}
+                            </div>
+                          </div>
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {post.tags.map((tag, tagIndex) => (
+                              <Badge key={tagIndex} variant="outline">
+                                {tag}
+                              </Badge>
+                            ))}
+                          </div>
+                          <Button>Read Full Article</Button>
+                        </div>
                       </div>
+                    </Card>
+                    {/* Ad after first featured article */}
+                    {index === 0 && <ResponsiveAd adSlot="1234567894" className="my-8" />}
+                  </div>
+                ))}
+              </div>
+
+              {/* 其他文章 */}
+              <div className="space-y-6">
+                <h2 className="text-2xl font-bold text-gray-900">More Articles</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {regularPosts.map((post, index) => (
+                    <div key={post.id}>
+                      <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                        <div className="aspect-video bg-gray-100">
+                          <img
+                            src={post.image || "/placeholder.svg"}
+                            alt={`${post.title} - Expert buzz cut maintenance and care advice`}
+                            className="w-full h-full object-cover"
+                            width="400"
+                            height="300"
+                            loading="lazy"
+                          />
+                        </div>
+                        <CardHeader>
+                          <div className="flex items-center justify-between mb-2">
+                            <Badge variant="secondary">{post.category}</Badge>
+                            <div className="flex items-center gap-1 text-sm text-gray-500">
+                              <Clock className="h-3 w-3" />
+                              {post.readTime}
+                            </div>
+                          </div>
+                          <CardTitle className="text-lg line-clamp-2">{post.title}</CardTitle>
+                          <CardDescription className="line-clamp-3">{post.excerpt}</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                            <div className="flex items-center gap-1">
+                              <User className="h-3 w-3" />
+                              {post.author}
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Calendar className="h-3 w-3" />
+                              {post.date}
+                            </div>
+                          </div>
+                          <div className="flex flex-wrap gap-1 mb-4">
+                            {post.tags.slice(0, 2).map((tag, tagIndex) => (
+                              <Badge key={tagIndex} variant="outline" className="text-xs">
+                                {tag}
+                              </Badge>
+                            ))}
+                          </div>
+                          <Button variant="outline" className="w-full">
+                            Read More
+                          </Button>
+                        </CardContent>
+                      </Card>
+                      {/* Ad after every 3rd article */}
+                      {(index + 1) % 3 === 0 && (
+                        <ResponsiveAd adSlot={`123456789${5 + Math.floor(index / 3)}`} className="my-8" />
+                      )}
                     </div>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+
+              {/* Additional SEO Content */}
+              <section className="bg-white rounded-lg p-8 mt-12">
+                <h2 className="text-3xl font-bold text-gray-900 mb-6">Complete Buzz Cut Care Resource</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4">Professional Hair Care Tips</h3>
+                    <p className="text-gray-600 mb-4">
+                      Our blog features expert advice from certified barbers, dermatologists, and hair care
+                      professionals. Learn the latest techniques for maintaining healthy buzz cuts, preventing common
+                      problems, and achieving professional-quality results at home.
+                    </p>
+                    <h3 className="text-xl font-semibold mb-4">Product Reviews and Recommendations</h3>
+                    <p className="text-gray-600">
+                      Discover the best products for buzz cut maintenance, from specialized shampoos and scalp
+                      moisturizers to styling tools and accessories. Our detailed reviews help you make informed
+                      decisions about your hair care routine.
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4">Styling Techniques and Trends</h3>
+                    <p className="text-gray-600 mb-4">
+                      Stay updated with the latest buzz cut trends and styling techniques. Learn how to adapt classic
+                      styles for modern looks, seasonal care adjustments, and professional styling tips that work for
+                      all hair types and face shapes.
+                    </p>
+                    <h3 className="text-xl font-semibold mb-4">Health and Maintenance Guides</h3>
+                    <p className="text-gray-600">
+                      Comprehensive guides covering scalp health, proper maintenance schedules, problem prevention, and
+                      troubleshooting common buzz cut issues. Everything you need for long-term hair and scalp health.
+                    </p>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            {/* 侧边栏 */}
+            <div className="space-y-6">
+              {/* Ad in sidebar */}
+              <ResponsiveAd adSlot="1234567899" />
+
+              {/* 分类 */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Tag className="h-4 w-4" />
+                    Article Categories
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    {categories.map((category, index) => (
+                      <Button
+                        key={index}
+                        variant={index === 0 ? "default" : "ghost"}
+                        className="w-full justify-start"
+                        size="sm"
+                      >
+                        {category}
+                      </Button>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* 热门标签 */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Popular Tags</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2">
+                    {popularTags.map((tag, index) => (
+                      <Badge key={index} variant="outline" className="cursor-pointer hover:bg-gray-100">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* 专家提示 */}
+              <Card className="bg-gradient-to-br from-blue-50 to-purple-50">
+                <CardHeader>
+                  <CardTitle className="text-blue-800">Expert Tip</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-blue-700 text-sm">
+                    "The key to a perfect buzz cut is consistent maintenance and proper scalp care. Visit your barber
+                    every 2-3 weeks and use quality scalp moisturizer daily."
+                  </p>
+                  <p className="text-xs text-blue-600 mt-2 font-medium">- Master Barber Rodriguez</p>
+                </CardContent>
+              </Card>
+
+              {/* 最新文章 */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Latest Articles</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {blogPosts.slice(0, 4).map((post) => (
+                      <div key={post.id} className="flex gap-3">
+                        <img
+                          src={post.image || "/placeholder.svg"}
+                          alt={`${post.title} - Buzz cut care tips and professional advice`}
+                          className="w-16 h-16 object-cover rounded"
+                          width="64"
+                          height="64"
+                          loading="lazy"
+                        />
+                        <div className="flex-1">
+                          <h4 className="font-medium text-sm line-clamp-2 mb-1">{post.title}</h4>
+                          <p className="text-xs text-gray-500">{post.date}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

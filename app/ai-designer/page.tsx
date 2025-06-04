@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Navigation } from "@/components/navigation"
+import { ServiceSchema } from "@/components/structured-data"
 import { trackAIDesignerEvent } from "@/lib/analytics"
 
 const hairstyles = [
@@ -170,227 +171,299 @@ export default function AIDesignerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50">
-      <Navigation />
+    <>
+      <ServiceSchema />
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50">
+        <Navigation />
 
-      {/* Header */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <Badge variant="secondary" className="mb-4">
-            <Sparkles className="h-3 w-3 mr-1" />
-            AI Powered
-          </Badge>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">AI Buzz Cut Designer</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Upload your photo and let our AI find the perfect buzz cut style for you. Personalized recommendations for
-            everyone, regardless of face shape or hair type
-          </p>
-        </div>
-      </section>
+        {/* Enhanced Header with more content */}
+        <section className="py-12 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto text-center">
+            <Badge variant="secondary" className="mb-4">
+              <Sparkles className="h-3 w-3 mr-1" />
+              AI Powered Technology
+            </Badge>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">AI Buzz Cut Designer</h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+              Upload your photo and let our advanced AI technology find the perfect buzz cut style for you. Our
+              artificial intelligence analyzes your face shape, hair type, and personal preferences to provide
+              personalized recommendations for everyone, regardless of gender, age, or hair texture.
+            </p>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* 左侧：上传和选择 */}
-          <div className="space-y-6">
-            {/* 照片上传 */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Upload className="h-5 w-5" />
-                  Upload Your Photo
-                </CardTitle>
-                <CardDescription>Supports JPG, PNG formats. Clear front-facing photos work best</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div
-                  className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-purple-400 transition-colors cursor-pointer"
-                  onDragOver={handleDragOver}
-                  onDrop={handleDrop}
-                  onClick={() => document.getElementById("file-upload")?.click()}
-                >
-                  {uploadedImage ? (
-                    <div className="space-y-4">
-                      <img
-                        src={uploadedImage || "/placeholder.svg"}
-                        alt="Uploaded photo for AI buzz cut analysis"
-                        className="max-h-64 mx-auto rounded-lg shadow-md"
-                        width="300"
-                        height="300"
-                      />
-                      <p className="text-sm text-gray-600">Click to re-upload</p>
-                    </div>
-                  ) : (
-                    <div className="space-y-4">
-                      <Upload className="h-12 w-12 text-gray-400 mx-auto" />
-                      <div>
-                        <p className="text-lg font-medium text-gray-900">Drag photo here or click to upload</p>
-                        <p className="text-sm text-gray-600">Maximum 10MB supported</p>
-                      </div>
-                    </div>
-                  )}
-                  <input
-                    id="file-upload"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    className="hidden"
-                  />
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* 发型选择 */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Choose Hairstyle</CardTitle>
-                <CardDescription>
-                  Select the hairstyle you want to try, AI will generate the effect for you
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                  {hairstyles.map((style) => (
-                    <div
-                      key={style.id}
-                      className={`relative cursor-pointer rounded-lg overflow-hidden border-2 transition-all ${
-                        selectedHairstyle === style.id
-                          ? "border-purple-500 ring-2 ring-purple-200"
-                          : "border-gray-200 hover:border-purple-300"
-                      }`}
-                      onClick={() => handleStyleSelection(style.id)}
-                    >
-                      <img
-                        src={style.image || "/placeholder.svg"}
-                        alt={style.alt}
-                        className="w-full h-24 object-cover"
-                        width="120"
-                        height="96"
-                        loading="lazy"
-                      />
-                      <div className="p-2">
-                        <p className="text-xs font-medium text-center">{style.name}</p>
-                        <Badge variant="outline" className="text-xs mt-1 w-full justify-center">
-                          {style.category}
-                        </Badge>
-                      </div>
-                      {selectedHairstyle === style.id && (
-                        <div className="absolute inset-0 bg-purple-500 bg-opacity-20 flex items-center justify-center">
-                          <div className="bg-purple-500 text-white rounded-full p-1">
-                            <Sparkles className="h-4 w-4" />
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* 生成按钮 */}
-            <Button
-              onClick={processHairstyle}
-              disabled={!uploadedImage || selectedHairstyle === null || isProcessing}
-              className="w-full h-12 text-lg"
-              size="lg"
-            >
-              {isProcessing ? (
-                <>
-                  <RefreshCw className="h-5 w-5 mr-2 animate-spin" />
-                  AI Processing...
-                </>
-              ) : (
-                <>
-                  <Sparkles className="h-5 w-5 mr-2" />
-                  Generate New Hairstyle
-                </>
-              )}
-            </Button>
+            {/* Additional content for better SEO */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 text-left">
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h2 className="text-lg font-semibold mb-3">AI-Powered Analysis</h2>
+                <p className="text-gray-600">
+                  Our machine learning algorithms analyze facial features, bone structure, and hair characteristics to
+                  recommend the most flattering buzz cut styles.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h2 className="text-lg font-semibold mb-3">Instant Results</h2>
+                <p className="text-gray-600">
+                  Get professional-quality style recommendations in seconds. Preview how different buzz cut variations
+                  will look on you before making any decisions.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h2 className="text-lg font-semibold mb-3">Professional Quality</h2>
+                <p className="text-gray-600">
+                  Our AI is trained on thousands of professional buzz cut styles and barber techniques to ensure
+                  high-quality, realistic recommendations.
+                </p>
+              </div>
+            </div>
           </div>
+        </section>
 
-          {/* 右侧：结果展示 */}
-          <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Effect Preview</CardTitle>
-                <CardDescription>AI-generated hairstyle effects will be displayed here</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="aspect-square bg-gray-50 rounded-lg flex items-center justify-center">
-                  {isProcessing ? (
-                    <div className="text-center space-y-4">
-                      <div className="animate-pulse">
-                        <Sparkles className="h-16 w-16 text-purple-400 mx-auto" />
-                      </div>
-                      <div className="space-y-2">
-                        <p className="text-lg font-medium">AI is designing your hairstyle...</p>
-                        <Progress value={progress} className="w-64" />
-                        <p className="text-sm text-gray-600">{progress}%</p>
-                      </div>
-                    </div>
-                  ) : processedImage ? (
-                    <div className="space-y-4">
-                      <img
-                        src={processedImage || "/placeholder.svg"}
-                        alt="AI generated buzz cut hairstyle result"
-                        className="max-h-96 mx-auto rounded-lg shadow-lg"
-                        width="400"
-                        height="400"
-                      />
-                      <div className="flex gap-2 justify-center">
-                        <Button onClick={downloadResult} variant="outline">
-                          <Download className="h-4 w-4 mr-2" />
-                          Download Image
-                        </Button>
-                        <Button onClick={() => setProcessedImage(null)} variant="outline">
-                          Regenerate
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="text-center text-gray-500">
-                      <Scissors className="h-16 w-16 mx-auto mb-4 text-gray-300" />
-                      <p className="text-lg">Upload photo and select hairstyle to start designing</p>
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* 对比展示 */}
-            {uploadedImage && processedImage && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* 左侧：上传和选择 */}
+            <div className="space-y-6">
+              {/* 照片上传 */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Before & After</CardTitle>
+                  <CardTitle className="flex items-center gap-2">
+                    <Upload className="h-5 w-5" />
+                    Upload Your Photo
+                  </CardTitle>
+                  <CardDescription>
+                    Supports JPG, PNG formats. Clear front-facing photos work best for accurate AI analysis
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="text-center">
-                      <p className="text-sm font-medium mb-2">Original</p>
-                      <img
-                        src={uploadedImage || "/placeholder.svg"}
-                        alt="Original photo before AI buzz cut transformation"
-                        className="w-full h-48 object-cover rounded-lg"
-                        width="200"
-                        height="192"
-                      />
-                    </div>
-                    <div className="text-center">
-                      <p className="text-sm font-medium mb-2">New Hairstyle</p>
-                      <img
-                        src={processedImage || "/placeholder.svg"}
-                        alt="AI generated buzz cut hairstyle transformation result"
-                        className="w-full h-48 object-cover rounded-lg"
-                        width="200"
-                        height="192"
-                      />
-                    </div>
+                  <div
+                    className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-purple-400 transition-colors cursor-pointer"
+                    onDragOver={handleDragOver}
+                    onDrop={handleDrop}
+                    onClick={() => document.getElementById("file-upload")?.click()}
+                  >
+                    {uploadedImage ? (
+                      <div className="space-y-4">
+                        <img
+                          src={uploadedImage || "/placeholder.svg"}
+                          alt="Uploaded photo for AI buzz cut analysis"
+                          className="max-h-64 mx-auto rounded-lg shadow-md"
+                          width="300"
+                          height="300"
+                        />
+                        <p className="text-sm text-gray-600">Click to re-upload</p>
+                      </div>
+                    ) : (
+                      <div className="space-y-4">
+                        <Upload className="h-12 w-12 text-gray-400 mx-auto" />
+                        <div>
+                          <p className="text-lg font-medium text-gray-900">Drag photo here or click to upload</p>
+                          <p className="text-sm text-gray-600">Maximum 10MB supported</p>
+                        </div>
+                      </div>
+                    )}
+                    <input
+                      id="file-upload"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      className="hidden"
+                    />
                   </div>
                 </CardContent>
               </Card>
-            )}
+
+              {/* 发型选择 */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Choose Your Preferred Style</CardTitle>
+                  <CardDescription>
+                    Select the buzz cut style you want to try. Our AI will generate a personalized preview showing how
+                    it will look on you
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    {hairstyles.map((style) => (
+                      <div
+                        key={style.id}
+                        className={`relative cursor-pointer rounded-lg overflow-hidden border-2 transition-all ${
+                          selectedHairstyle === style.id
+                            ? "border-purple-500 ring-2 ring-purple-200"
+                            : "border-gray-200 hover:border-purple-300"
+                        }`}
+                        onClick={() => handleStyleSelection(style.id)}
+                      >
+                        <img
+                          src={style.image || "/placeholder.svg"}
+                          alt={style.alt}
+                          className="w-full h-24 object-cover"
+                          width="120"
+                          height="96"
+                          loading="lazy"
+                        />
+                        <div className="p-2">
+                          <p className="text-xs font-medium text-center">{style.name}</p>
+                          <Badge variant="outline" className="text-xs mt-1 w-full justify-center">
+                            {style.category}
+                          </Badge>
+                        </div>
+                        {selectedHairstyle === style.id && (
+                          <div className="absolute inset-0 bg-purple-500 bg-opacity-20 flex items-center justify-center">
+                            <div className="bg-purple-500 text-white rounded-full p-1">
+                              <Sparkles className="h-4 w-4" />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* 生成按钮 */}
+              <Button
+                onClick={processHairstyle}
+                disabled={!uploadedImage || selectedHairstyle === null || isProcessing}
+                className="w-full h-12 text-lg"
+                size="lg"
+              >
+                {isProcessing ? (
+                  <>
+                    <RefreshCw className="h-5 w-5 mr-2 animate-spin" />
+                    AI Processing...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="h-5 w-5 mr-2" />
+                    Generate New Hairstyle
+                  </>
+                )}
+              </Button>
+            </div>
+
+            {/* 右侧：结果展示 */}
+            <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>AI-Generated Preview</CardTitle>
+                  <CardDescription>
+                    Your personalized buzz cut preview will appear here. Our AI technology creates realistic
+                    visualizations based on your facial features and selected style.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="aspect-square bg-gray-50 rounded-lg flex items-center justify-center">
+                    {isProcessing ? (
+                      <div className="text-center space-y-4">
+                        <div className="animate-pulse">
+                          <Sparkles className="h-16 w-16 text-purple-400 mx-auto" />
+                        </div>
+                        <div className="space-y-2">
+                          <p className="text-lg font-medium">AI is designing your hairstyle...</p>
+                          <Progress value={progress} className="w-64" />
+                          <p className="text-sm text-gray-600">{progress}%</p>
+                        </div>
+                      </div>
+                    ) : processedImage ? (
+                      <div className="space-y-4">
+                        <img
+                          src={processedImage || "/placeholder.svg"}
+                          alt="AI generated buzz cut hairstyle result"
+                          className="max-h-96 mx-auto rounded-lg shadow-lg"
+                          width="400"
+                          height="400"
+                        />
+                        <div className="flex gap-2 justify-center">
+                          <Button onClick={downloadResult} variant="outline">
+                            <Download className="h-4 w-4 mr-2" />
+                            Download Image
+                          </Button>
+                          <Button onClick={() => setProcessedImage(null)} variant="outline">
+                            Regenerate
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="text-center text-gray-500">
+                        <Scissors className="h-16 w-16 mx-auto mb-4 text-gray-300" />
+                        <p className="text-lg">Upload photo and select hairstyle to start designing</p>
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* 对比展示 */}
+              {uploadedImage && processedImage && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Before & After Comparison</CardTitle>
+                    <CardDescription>
+                      See the transformation side by side. Compare your original photo with the AI-generated buzz cut
+                      style.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="text-center">
+                        <p className="text-sm font-medium mb-2">Original</p>
+                        <img
+                          src={uploadedImage || "/placeholder.svg"}
+                          alt="Original photo before AI buzz cut transformation"
+                          className="w-full h-48 object-cover rounded-lg"
+                          width="200"
+                          height="192"
+                        />
+                      </div>
+                      <div className="text-center">
+                        <p className="text-sm font-medium mb-2">New Hairstyle</p>
+                        <img
+                          src={processedImage || "/placeholder.svg"}
+                          alt="AI generated buzz cut hairstyle transformation result"
+                          className="w-full h-48 object-cover rounded-lg"
+                          width="200"
+                          height="192"
+                        />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
           </div>
+
+          {/* Additional SEO Content */}
+          <section className="mt-16 bg-white rounded-lg p-8">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">How Our AI Buzz Cut Designer Works</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-xl font-semibold mb-4">Advanced Face Analysis</h3>
+                <p className="text-gray-600 mb-4">
+                  Our AI technology uses computer vision to analyze your facial structure, including face shape,
+                  jawline, cheekbones, and forehead proportions. This detailed analysis ensures that the recommended
+                  buzz cut styles complement your unique features.
+                </p>
+                <h3 className="text-xl font-semibold mb-4">Style Matching Algorithm</h3>
+                <p className="text-gray-600">
+                  Based on the facial analysis, our machine learning algorithm matches you with the most suitable buzz
+                  cut variations from our extensive database of professional styles, ensuring a personalized and
+                  flattering result.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-4">Realistic Visualization</h3>
+                <p className="text-gray-600 mb-4">
+                  Using advanced image processing techniques, we generate realistic previews that show exactly how each
+                  buzz cut style will look on you. This helps you make confident decisions about your next haircut.
+                </p>
+                <h3 className="text-xl font-semibold mb-4">Professional Quality Results</h3>
+                <p className="text-gray-600">
+                  Our AI is trained on thousands of professional buzz cut examples and barber techniques, ensuring that
+                  all recommendations meet the highest standards of style and quality.
+                </p>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
-    </div>
+    </>
   )
 }

@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 
+# Enhanced robots.txt for better crawling
 # Sitemap
 Sitemap: https://www.aibuzzcut.shop/sitemap.xml
 
@@ -8,14 +9,27 @@ Sitemap: https://www.aibuzzcut.shop/sitemap.xml
 Disallow: /api/
 Disallow: /_next/
 Disallow: /admin/
+Disallow: /private/
 
 # Allow important pages
 Allow: /
 Allow: /buzz-cut
 Allow: /classic-buzz-cut
+Allow: /modern-buzz-cut
+Allow: /artistic-buzz-cut
 Allow: /ai-designer
 Allow: /blog
 Allow: /contact
 
+# Allow all images
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.webp$
+
 # Crawl delay (optional)
 Crawl-delay: 1
+
+# Host directive
+Host: https://www.aibuzzcut.shop
